@@ -8,8 +8,10 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 16
-        - run: npm run ci
-        - run: npm run dist
+      - name: Install dependencies
+        run: npm run ci
+      - name: Generate dist
+        run: npm run dist
       - name: Check for modified files
         id: git-check
         run: echo ::set-output name=modified::$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)
