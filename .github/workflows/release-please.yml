@@ -10,7 +10,7 @@ jobs:
       - uses: google-github-actions/release-please-action@v3
         with:
           release-type: node
-          package-name: release-please-action
+          package-name: apps-script-oauth1
       - uses: actions/checkout@v2
         if: ${{ steps.release.outputs.pr }}
       - uses: actions/setup-node@v1
