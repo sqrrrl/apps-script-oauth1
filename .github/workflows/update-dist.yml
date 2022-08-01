@@ -9,7 +9,7 @@ jobs:
         with:
           node-version: 16
       - name: Install dependencies
-        run: npm run ci
+        run: npm ci
       - name: Generate dist
         run: npm run dist
       - name: Check for modified files
