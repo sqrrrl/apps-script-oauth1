@@ -26,6 +26,7 @@
  * @constructor
  */
 var Service_ = function(serviceName) {
+  this.test = 'foo';
   validate_({
     'Service name': serviceName
   });
