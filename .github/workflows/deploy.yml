@@ -1,0 +1,19 @@
+on: [workflow_call, workflow_dispatch]
+name: Deploy script
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16
+      - name: Write test credentials
+        run: |
+          echo "${CLASP_CREDENTIALS}" > "${HOME}/.clasprc.json"
+        env:
+          CLASP_CREDENTIALS: ${{secrets.LIBRARIES_OWNER_CLASP_TOKEN}}
+      - name: Depoy scripts
+        run: |
+          npx @google/clasp push
+          npx @google/clasp version

@@ -4,7 +4,7 @@ on:
       - main
 name: release-please
 jobs:
-  release-please:
+  release:
     runs-on: ubuntu-latest
     steps:
       - uses: google-github-actions/release-please-action@v3
@@ -12,20 +12,5 @@ jobs:
           token: ${{secrets.GOOGLEWORKSPACE_BOT_TOKEN}}
           release-type: node
           package-name: apps-script-oauth1
-      - uses: actions/checkout@v2
+      - uses: ./.github/workflows/deploy
         if: ${{ steps.release.outputs.release_created }}
-      - uses: actions/setup-node@v1
-        if: ${{ steps.release.outputs.release_created }}
-        with:
-          node-version: 16
-      - name: Write test credentials
-        if: ${{ steps.release.outputs.release_created }}
-        run: |
-          echo "${CLASP_CREDENTIALS}" > "${HOME}/.clasprc.json"
-        env:
-          CLASP_CREDENTIALS: ${{secrets.LIBRARIES_OWNER_CLASP_TOKEN}}
-      - name: Depoy scripts
-        if: ${{ steps.release.outputs.release_created }}
-        run: |
-          npx @google/clasp push
-          npx @google/clasp version
