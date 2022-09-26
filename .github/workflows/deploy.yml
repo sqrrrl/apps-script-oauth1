@@ -15,5 +15,6 @@ jobs:
           CLASP_CREDENTIALS: ${{secrets.LIBRARIES_OWNER_CLASP_TOKEN}}
       - name: Depoy scripts
         run: |
+          cd src
           npx @google/clasp push
-          npx @google/clasp deploy
+          MESSAGE=$(git log -1 --pretty=%B) npx @google/clasp version "${MESSAGE}"
